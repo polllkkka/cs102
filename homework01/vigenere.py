@@ -53,12 +53,12 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
             key = ord(keyword[i]) - 97
         if ciphertext[i].isalpha():
             el = ord(ciphertext[i])
-            if ciphertext[i].isupper() and c_b <= 64 + key:
-                plaintext += chr(c_b + 26 - key)
-            elif ciphertext[i].islower() and c_b <= 96 + key:
-                plaintext += chr(c_b + 26 - key)
+            if ciphertext[i].isupper() and el <= 64 + key:
+                plaintext += chr(el + 26 - key)
+            elif ciphertext[i].islower() and el <= 96 + key:
+                plaintext += chr(el + 26 - key)
             else:
-                plaintext += chr(c_b - key)
+                plaintext += chr(el - key)
         else:
             plaintext += ciphertext[i]
     return plaintext
