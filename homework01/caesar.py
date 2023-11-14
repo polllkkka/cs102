@@ -14,7 +14,7 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     >>> encrypt_caesar("")
     ''
     """
-    chiphertext = ""
+    chiphertext = " "
     for i, _ in enumerate(plaintext):
         if plaintext[i].isalpha():
             el = ord(plaintext[i])
