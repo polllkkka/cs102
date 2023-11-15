@@ -5,13 +5,13 @@ import typing as tp
 def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
     """
     Encrypts plaintext using a Caesar cipher.
-    >>> encrypt_caesar("PYTHON")
+    >>> encrypt_caesar('PYTHON')
     'SBWKRQ'
-    >>> encrypt_caesar("python")
+    >>> encrypt_caesar('python')
     'sbwkrq'
-    >>> encrypt_caesar("Python3.6")
+    >>> encrypt_caesar('Python3.6')
     'Sbwkrq3.6'
-    >>> encrypt_caesar("")
+    >>> encrypt_caesar(' ')
     ''
     """
     chiphertext = " "
@@ -32,16 +32,16 @@ def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
 def decrypt_caesar(chiphertext: str, shift: int = 3) -> str:
     """
     Decrypts a chiphertext using a Caesar cipher.
-    >>> decrypt_caesar("SBWKRQ")
+    >>> decrypt_caesar('SBWKRQ')
     'PYTHON'
-    >>> decrypt_caesar("sbwkrq")
+    >>> decrypt_caesar('sbwkrq')
     'python'
-    >>> decrypt_caesar("Sbwkrq3.6")
+    >>> decrypt_caesar('Sbwkrq3.6')
     'Python3.6'
     >>> decrypt_caesar("")
     ''
     """
-    plaintext = ""
+    plaintext = " "
     for i, _ in enumerate(chiphertext):
         if chiphertext[i].isalpha():
             el = ord(chiphertext[i])
