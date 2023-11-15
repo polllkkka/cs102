@@ -21,9 +21,9 @@ def is_prime(n: int) -> bool:
     if n % 2 == 0:
         return False
     d = 3
-    while d ** 2 <= n and n % d != 0:
+    while d**2 <= n and n % d != 0:
         d += 2
-    return d ** 2 > n
+    return d**2 > n
 
 
 def gcd(x: int, y: int) -> int:
