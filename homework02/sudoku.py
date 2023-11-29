@@ -107,11 +107,11 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
         for i in range(3):
             for j in range(3):
                 res.append(grid[i+6][j])
-    elif col <= 5 and row <= 2 and row > 2:
+    elif col <= 5 and row <= 2 and col > 2:
         for i in range(3):
             for j in range(3):
                 res.append(grid[i][j+3])
-    elif col <= 5 and row <= 5 and row > 2:
+    elif col <= 5 and row <= 5 and col > 2:
         for i in range(3):
             for j in range(3):
                 res.append(grid[i+3][j+3])
