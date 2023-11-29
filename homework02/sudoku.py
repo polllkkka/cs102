@@ -1,6 +1,6 @@
 import pathlib
-import typing as tp
 import random
+import typing as tp
 import typing import List
 
 T = tp.TypeVar("T")
