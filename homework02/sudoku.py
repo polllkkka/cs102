@@ -102,35 +102,35 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     elif col <= 2 and row <= 5 and row > 2:
         for i in range(3):
             for j in range(3):
-                res.append(grid[i+3][j])
+                res.append(grid[i + 3][j])
     elif col <= 2 and row <= 8 and row > 5:
         for i in range(3):
             for j in range(3):
-                res.append(grid[i+6][j])
+                res.append(grid[i + 6][j])
     elif col <= 5 and row <= 2 and col > 2:
         for i in range(3):
             for j in range(3):
-                res.append(grid[i][j+3])
-    elif col <= 5 and row <= 5 and col > 2:
+                res.append(grid[i][j + 3])
+    elif col <= 5 and row <= 5 and col > 2 and row > 2:
         for i in range(3):
             for j in range(3):
-                res.append(grid[i+3][j+3])
-    elif col <= 5 and row <= 8 and col > 5 and row > 5:
+                res.append(grid[i + 3][j + 3])
+    elif col <= 5 and row <= 8 and col > 2 and row > 5:
         for i in range(3):
             for j in range(3):
-                res.append(grid[i+6][j+3])
+                res.append(grid[i + 6][j + 3])
     elif col <= 8 and row <= 2 and col > 5:
         for i in range(3):
             for j in range(3):
-                res.append(grid[i][j+6])
+                ans.append(grid[i][j + 6])
     elif col <= 8 and row <= 5 and col > 5 and row > 2:
         for i in range(3):
             for j in range(3):
-                res.append(grid[i+3][j+6])
-    elif col <= 8 and row <= 8 and row > 5 and col > 5:
+                res.append(grid[i + 3][j + 6])
+    elif col <= 8 and row <= 8 and col > 5 and row > 5:
         for i in range(3):
             for j in range(3):
-                res.append(grid[i+6][j+6])
+                res.append(grid[i + 6][j + 6])
     return res
 
 
