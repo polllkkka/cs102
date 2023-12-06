@@ -141,8 +141,7 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
     """
     i = 0
     j = 0
-    k = 10
-    l = 10
+
     while grid[i][j] != ".":
         if j < len(grid[0]) - 1:
             j += 1
@@ -150,7 +149,7 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
             j = 0
             i += 1
         if i == (len(grid)):
-            return k, l
+            return None
     return i, j
 
 
@@ -187,47 +186,42 @@ def solve(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
     [['5', '3', '4', '6', '7', '8', '9', '1', '2'], ['6', '7', '2', '1', '9', '5', '3', '4', '8'], ['1', '9', '8', '3', '4', '2', '5', '6', '7'], ['8', '5', '9', '7', '6', '1', '4', '2', '3'], ['4', '2', '6', '8', '5', '3', '7', '9', '1'], ['7', '1', '3', '9', '2', '4', '8', '5', '6'], ['9', '6', '1', '5', '3', '7', '2', '8', '4'], ['2', '8', '7', '4', '1', '9', '6', '3', '5'], ['3', '4', '5', '2', '8', '6', '1', '7', '9']]
     """
     pos = find_empty_positions(grid)
-    if pos == (10, 10):
+    if not pos:
         return grid
-    else:
-        n, m = find_empty_positions(grid)
-        res = find_possible_values(grid, pos)
+
+    n, m = pos
+    res = find_possible_values(grid, pos)
+    if res:
         for i in res:
             grid[n][m] = str(i)
-            if solve(grid) is not None:
+            if solve(grid):
                 return grid
-            grid[n][m] = "."
-        return None
+        grid[n][m] = "."
+    return None
 
 
 def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """Если решение solution верно, то вернуть True, в противном случае False"""
     # TODO: Add doctests with bad puzzles
-    check = 0
+    # check = 0
     for i in range(0, 9):
         for j in range(0, 9):
             if solution[i][j] == ".":
-                check = 0
-                break
-            if i % 3 == 0 or i == 0:
-                col = get_col(solution, (i, j))
-                row = get_row(solution, (i, j))
-                block = get_block(solution, (i, j))
-                b: List[str] = []
-                for x in block:
-                    b.extend(x)
-                setcol = set(col)
-                setrow = set(row)
-                setb = set(b)
-                if len(setcol) == len(col) and len(setrow) == len(row) and len(setb) == len(b):
-                    check = 1
-                if check == 1:
-                    continue
-                else:
-                    break
-    if check == 1:
-        return True
-    return False
+                return False
+            # if i % 3 == 0 or i == 0:
+            col = set(get_col(solution, (i, j)))
+            row = set(get_row(solution, (i, j)))
+            block = set(get_block(solution, (i, j)))
+            # b: List[str] = []
+            # for x in block:
+            #     b.extend(x)
+            # setcol = set(col)
+            # setrow = set(row)
+            # setb = set(b)
+            if len(col) != 9 or len(row) != 9 or len(block) != 9:
+                return False
+
+    return True
 
 
 def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
@@ -251,7 +245,7 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
-    grid: List[List[str]] = [[]]
+    grid: list[list[str]] = [[]]
     nums = []
     for i in range(1, 10):
         nums.append(str(i))
