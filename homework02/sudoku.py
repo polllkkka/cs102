@@ -39,17 +39,8 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
     >>> group([1,2,3,4,5,6,7,8,9], 3)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
-    res = []
-    for i in range(0, len(values), n):
-        arr = []
-        # j = 0
-        for j in range(n):
-            # while j != n:
-            q = i
-            arr.append(values[q + j])
-            # j += 1
-        res.append(arr)
-    return res
+    arr = [values[i: i + n] for i in range(0, len(values), n)]
+    return arr
 
 
 def get_row(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -207,14 +198,14 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     True
     """
     grid: list[list[str]] = [[]]
-    nums = [str(i) for i in range(1,10)]
+    nums = [str(i) for i in range(1, 10)]
     for j in range(9):
         grid[0].append(random.choice(nums))
         nums.remove(grid[0][j])
-    for q in range(1, 9):
+    for i_row in range(1, 9):
         grid.append([])
-        for w in range(9):
-            grid[q].append(".")
+        for j_col in range(9):
+            grid[i_row].append(".")
     solve(grid)
     n = 81
     if N > 81:
