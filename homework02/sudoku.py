@@ -75,8 +75,7 @@ def get_col(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str
     ['3', '6', '9']
     """
     row, col = pos
-    res = [x[col] for x in grid]
-    return res
+    return [x[col] for x in grid]
 
 
 def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
@@ -89,45 +88,13 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     >>> get_block(grid, (8, 8))
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
-    row, col = pos
-    res = []
-    if col <= 2 and row <= 2:
-        for i in range(3):
-            for j in range(3):
-                res.append(grid[i][j])
-    elif col <= 2 and row <= 5 and row > 2:
-        for i in range(3):
-            for j in range(3):
-                res.append(grid[i + 3][j])
-    elif col <= 2 and row <= 8 and row > 5:
-        for i in range(3):
-            for j in range(3):
-                res.append(grid[i + 6][j])
-    elif col <= 5 and row <= 2 and col > 2:
-        for i in range(3):
-            for j in range(3):
-                res.append(grid[i][j + 3])
-    elif col <= 5 and row <= 5 and col > 2 and row > 2:
-        for i in range(3):
-            for j in range(3):
-                res.append(grid[i + 3][j + 3])
-    elif col <= 5 and row <= 8 and col > 2 and row > 5:
-        for i in range(3):
-            for j in range(3):
-                res.append(grid[i + 6][j + 3])
-    elif col <= 8 and row <= 2 and col > 5:
-        for i in range(3):
-            for j in range(3):
-                res.append(grid[i][j + 6])
-    elif col <= 8 and row <= 5 and col > 5 and row > 2:
-        for i in range(3):
-            for j in range(3):
-                res.append(grid[i + 3][j + 6])
-    elif col <= 8 and row <= 8 and col > 5 and row > 5:
-        for i in range(3):
-            for j in range(3):
-                res.append(grid[i + 6][j + 6])
-    return res
+    block = []
+    for i in range(3):
+        row = get_row(grid, ((pos[0] // 3) * 3 + i, pos[1]))
+        grouped_row = group(row, 3)
+        rc = get_row(grouped_row, ((pos[1] // 3), pos[1]))
+        block.extend(rc)
+    return block
 
 
 def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[int, int]]:
@@ -212,12 +179,6 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
             col = set(get_col(solution, (i, j)))
             row = set(get_row(solution, (i, j)))
             block = set(get_block(solution, (i, j)))
-            # b: List[str] = []
-            # for x in block:
-            #     b.extend(x)
-            # setcol = set(col)
-            # setrow = set(row)
-            # setb = set(b)
             if len(col) != 9 or len(row) != 9 or len(block) != 9:
                 return False
 
@@ -246,9 +207,7 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     True
     """
     grid: list[list[str]] = [[]]
-    nums = []
-    for i in range(1, 10):
-        nums.append(str(i))
+    nums = [str(i) for i in range(1,10)]
     for j in range(9):
         grid[0].append(random.choice(nums))
         nums.remove(grid[0][j])
@@ -260,13 +219,12 @@ def generate_sudoku(N: int) -> tp.List[tp.List[str]]:
     n = 81
     if N > 81:
         return grid
-    else:
-        while n != N:
-            a, b = random.randint(0, 8), random.randint(0, 8)
-            if grid[a][b] != ".":
-                grid[a][b] = "."
-                n -= 1
-        return grid
+    while n != N:
+        a, b = random.randint(0, 8), random.randint(0, 8)
+        if grid[a][b] != ".":
+            grid[a][b] = "."
+            n -= 1
+    return grid
 
 
 if __name__ == "__main__":
