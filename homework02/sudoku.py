@@ -39,7 +39,7 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
     >>> group([1,2,3,4,5,6,7,8,9], 3)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
-    arr = [values[i: i + n] for i in range(0, len(values), n)]
+    arr = [values[i : i + n] for i in range(0, len(values), n)]
     return arr
 
 
