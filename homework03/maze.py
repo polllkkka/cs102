@@ -1,3 +1,4 @@
+import random
 from random import choice, randint
 from typing import List, Optional, Tuple, Union
 
