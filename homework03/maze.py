@@ -1,6 +1,7 @@
 from copy import deepcopy
 from random import choice, randint
 from typing import List, Optional, Tuple, Union
+import random
 
 import pandas as pd
 
@@ -16,12 +17,19 @@ def remove_wall(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) -> Li
     :param coord:
     :return:
     """
-    if grid[coord[0]][coord[1]] != " ":
-        grid[coord[0]][coord[1]] = " "
-    elif coord[1] + 1 < len(grid[0]) - 1:
-        grid[coord[0]][coord[1] + 1] = " "
-    elif coord[0] - 1 > 1:
-        grid[coord[0] - 1][coord[1]] = " "
+    choice = ["up", "right"]
+    x, y = coord[0], coord[1]
+    route = random.choice(choice)
+    if route == "up":
+        if x != 1:
+            grid[x - 1][y] = " "
+        elif y + 2 != len(grid[0]):
+            grid[x][y + 1] = " "
+    else:
+        if y + 2 != len(grid[0]):
+            grid[x][y + 1] = " "
+        elif x != 1:
+            grid[x - 1][y] = " "
     return grid
 
 
@@ -49,7 +57,7 @@ def bin_tree_maze(rows: int = 15, cols: int = 15, random_exit: bool = True) -> L
     # 3. перейти в следующую клетку, сносим между клетками стену
     # 4. повторять 2-3 до тех пор, пока не будут пройдены все клетки
     for i in empty_cells:
-        grid = remove_wall(grid, 1)
+        grid = remove_wall(grid, i)
 
     # генерация входа и выхода
     if random_exit:
