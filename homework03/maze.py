@@ -211,7 +211,7 @@ def solve_maze(
     else:
         for door in doors:
             if encircled_exit(grid, door):
-                return None, None
+                return [], []
     enter = doors[0]
     exit = doors[1]
     if exit[1] - enter[1] == 1 and exit[0] - enter[0] == 0:
