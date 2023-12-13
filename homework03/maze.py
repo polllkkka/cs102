@@ -59,18 +59,18 @@ def bin_tree_maze(
                 if actual_row == 1:
                     if actual_col + 1 == cols - 1:
                         continue
-                    break_wall(grid, (actual_row, actual_col + 1))
+                    remove_wall(grid, (actual_row, actual_col + 1))
                 elif actual_row + 1 <= rows - 1:
-                    break_wall(grid, (actual_row - 1, actual_col))
+                    remove_wall(grid, (actual_row - 1, actual_col))
             else:
                 if actual_row == 1:
                     if actual_col + 1 == cols - 1:
                         continue
-                    break_wall(grid, (actual_row, actual_col + 1))
+                    remove_wall(grid, (actual_row, actual_col + 1))
                 elif actual_col + 1 < cols - 1:
-                    break_wall(grid, (actual_row, actual_col + 1))
+                    remove_wall(grid, (actual_row, actual_col + 1))
                 else:
-                    break_wall(grid, (actual_row - 1, actual_col))
+                    remove_wall(grid, (actual_row - 1, actual_col))
     # генерация входа и выхода
     if random_exit:
         x_in, x_out = randint(0, rows - 1), randint(0, rows - 1)
@@ -231,7 +231,7 @@ def solve_maze(
             elif grid[i][j] == "X":
                 grid[i][j] = 0
 
-    k = 1  # выставляем k единицей
+    k = 1
     while grid[doors[1][0]][doors[1][1]] == 0:
         grid = make_step(grid, k)
         k += 1
