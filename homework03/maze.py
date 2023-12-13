@@ -16,12 +16,12 @@ def remove_wall(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) -> Li
     :param coord:
     :return:
     """
-    if grid[coord[0]][coord[1]] != "":
-        grid[coord[0]][coord[1]] = ""
+    if grid[coord[0]][coord[1]] != " ":
+        grid[coord[0]][coord[1]] = " "
     elif coord[1] + 1 < len(grid[0]) - 1:
-        grid[coord[0]][coord[1] + 1] = ""
+        grid[coord[0]][coord[1] + 1] = " "
     elif coord[0] - 1 > 1:
-        grid[coord[0] - 1][coord[1]] = ""
+        grid[coord[0] - 1][coord[1]] = " "
     return grid
 
 
@@ -211,7 +211,7 @@ def solve_maze(
     else:
         for door in doors:
             if encircled_exit(grid, door):
-                return [], []
+                return grid, None
     enter = doors[0]
     exit = doors[1]
     if exit[1] - enter[1] == 1 and exit[0] - enter[0] == 0:
