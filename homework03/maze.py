@@ -48,25 +48,9 @@ def bin_tree_maze(rows: int = 15, cols: int = 15, random_exit: bool = True) -> L
     # выбрать второе возможное направление
     # 3. перейти в следующую клетку, сносим между клетками стену
     # 4. повторять 2-3 до тех пор, пока не будут пройдены все клетки
-    for actual_row in range(1, rows - 1, 2):
-        for actual_col in range(1, cols - 1, 2):
-            flip = randint(0, 1)
-            if flip == 0:
-                if actual_row == 1:
-                    if actual_col + 1 == cols - 1:
-                        continue
-                    remove_wall(grid, (actual_row, actual_col + 1))
-                elif actual_row + 1 <= rows - 1:
-                    remove_wall(grid, (actual_row - 1, actual_col))
-            else:
-                if actual_row == 1:
-                    if actual_col + 1 == cols - 1:
-                        continue
-                    remove_wall(grid, (actual_row, actual_col + 1))
-                elif actual_col + 1 < cols - 1:
-                    remove_wall(grid, (actual_row, actual_col + 1))
-                else:
-                    remove_wall(grid, (actual_row - 1, actual_col))
+    for i in empty_cells:
+        grid = remove_wall(grid, 1)
+
     # генерация входа и выхода
     if random_exit:
         x_in, x_out = randint(0, rows - 1), randint(0, rows - 1)
@@ -94,15 +78,13 @@ def get_exits(grid: List[List[Union[str, int]]]) -> List[Tuple[int, int]]:
     for i in range(cols):
         if grid[0][i] == "X":
             coordinates.append((0, i))
+        if grid[len(grid[0]) - 1][i] == "X":
+            coordinates.append((len(grid[0]) - 1, i))
     for i in range(rows):
         if grid[i][0] == "X":
             coordinates.append((i, 0))
-    for i in range(rows):
         if grid[i][len(grid) - 1] == "X":
             coordinates.append((i, len(grid) - 1))
-    for i in range(cols):
-        if grid[len(grid[0]) - 1][i] == "X":
-            coordinates.append((len(grid[0]) - 1, i))
     if len(coordinates) > 1:
         if coordinates[0][0] > coordinates[1][0]:
             coordinates[0], coordinates[1] = coordinates[1], coordinates[0]
@@ -178,10 +160,7 @@ def encircled_exit(grid: List[List[Union[str, int]]], coord: Tuple[int, int]) ->
     """
 
     if (
-        coord == (0, 0)
-        or coord == (len(grid) - 1, len(grid) - 1)
-        or coord == (len(grid) - 1, 0)
-        or coord == (0, len(grid) - 1)
+        coord in ((0, 0), (len(grid) - 1, len(grid) - 1), (len(grid) - 1, 0), (0, len(grid) - 1))
         or coord[0] == 0
         and grid[1][coord[1]] != " "
         or coord[0] == len(grid) - 1
