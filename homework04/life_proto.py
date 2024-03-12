@@ -105,7 +105,14 @@ class GameOfLife:
         out : Cells
             Список соседних клеток.
         """
-        pass
+        # Кортеж смещений координат смежных ячеек
+        dxdy = ((1, 1), (0, 1), (-1, 1), (-1, 0), (-1, -1), (0, -1), (1, -1), (1, 0))
+        # Пары координат 8 смежных ячеек
+        nearest_pairs = [(cell[0] + dx, cell[1] + dy) for dx, dy in dxdy]
+        # Оставляет только те из них, которые заняты живыми клетками
+        neighbours = set(filter(lambda c: c in cell, nearest_pairs))
+        return neighbours
+
 
     def get_next_generation(self) -> Grid:
         """
