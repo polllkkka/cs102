@@ -33,11 +33,9 @@ class GameOfLife:
         """Отрисовать сетку"""
         # @see: http://www.pygame.org/docs/ref/draw.html#pygame.draw.line
         for x in range(0, self.width, self.cell_size):
-            pygame.draw.line(self.screen, pygame.Color('black'),
-                             (x, 0), (x, self.height))
+            pygame.draw.line(self.screen, pygame.Color("black"), (x, 0), (x, self.height))
         for y in range(0, self.height, self.cell_size):
-            pygame.draw.line(self.screen, pygame.Color('black'),
-                             (0, y), (self.width, y))
+            pygame.draw.line(self.screen, pygame.Color("black"), (0, y), (self.width, y))
 
     def run(self) -> None:
         """Запустить игру"""
@@ -61,7 +59,6 @@ class GameOfLife:
             pygame.display.flip()
             clock.tick(self.speed)
         pygame.quit()
-
 
     def create_grid(self, randomize: bool = False) -> Grid:
         """
@@ -88,7 +85,6 @@ class GameOfLife:
                     grid[i][j] = randint(0, 1)
         return grid
 
-
     def draw_grid(self) -> None:
         """
         Отрисовка списка клеток с закрашиванием их в соответствующе цвета.
@@ -99,7 +95,6 @@ class GameOfLife:
                 x = j * self.cell_size
                 color = pygame.Color("green" if self.grid[i][j] else "white")
                 pygame.draw.rect(self.screen, color, (x, y, self.cell_size, self.cell_size))
-
 
     def get_neighbours(self, cell: Cell) -> Cells:
         """
@@ -123,22 +118,22 @@ class GameOfLife:
         cells = []
         if i > 0:
             if j > 0:
-                cells.append(self.grid[i-1][j-1])
-            cells.append(self.grid[i-1][j])
+                cells.append(self.grid[i - 1][j - 1])
+            cells.append(self.grid[i - 1][j])
             if j < self.cell_width - 1:
-                cells.append(self.grid[i-1][j+1])
+                cells.append(self.grid[i - 1][j + 1])
 
         if j > 0:
-            cells.append(self.grid[i][j-1])
+            cells.append(self.grid[i][j - 1])
         if j < self.cell_width - 1:
-            cells.append(self.grid[i][j+1])
+            cells.append(self.grid[i][j + 1])
 
         if i < self.cell_height - 1:
             if j > 0:
-                cells.append(self.grid[i+1][j-1])
-            cells.append(self.grid[i+1][j])
+                cells.append(self.grid[i + 1][j - 1])
+            cells.append(self.grid[i + 1][j])
             if j < self.cell_width - 1:
-                cells.append(self.grid[i+1][j+1])
+                cells.append(self.grid[i + 1][j + 1])
 
         return cells
 
@@ -155,12 +150,11 @@ class GameOfLife:
         for i in range(self.cell_height):
             for j in range(self.cell_width):
                 alive_neighbours_quantity = self.get_neighbours((i, j)).count(1)
-                if (alive_neighbours_quantity == 3 or
-                        alive_neighbours_quantity == 2 and self.grid[i][j]):
+                if alive_neighbours_quantity == 3 or alive_neighbours_quantity == 2 and self.grid[i][j]:
                     grid[i][j] = 1
         self.grid = grid
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     game = GameOfLife(320, 240, 20)
     game.run()
