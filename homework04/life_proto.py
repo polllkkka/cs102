@@ -152,7 +152,11 @@ class GameOfLife:
                 alive_neighbours_quantity = self.get_neighbours((i, j)).count(1)
                 if alive_neighbours_quantity == 3 or alive_neighbours_quantity == 2 and self.grid[i][j]:
                     grid[i][j] = 1
-        self.grid = grid
+                if alive_neighbours_quantity == 3 and self.grid[i][j] == 0:
+                    grid[i][j] = 1
+        return grid
+
+
 
 
 if __name__ == "__main__":
